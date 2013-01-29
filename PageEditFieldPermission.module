@@ -26,7 +26,7 @@ class PageEditFieldPermission extends WireData implements Module, ConfigurableMo
 	public static function getModuleInfo() {
 		return array(
 			'title' => 'Page Edit Field Permission', 
-			'version' => 1, 
+			'version' => 2, 
 			'summary' => 'Enables you to limit edit access (by role) to any field in the page editor.',
 			'author' => 'Ryan Cramer',
 			'singular' => true, 
@@ -61,7 +61,7 @@ class PageEditFieldPermission extends WireData implements Module, ConfigurableMo
 		$page = $event->object; 
 
 		$fieldPermissions = $this->getFieldPermissions();
-		$permissionName = "page-edit-$fieldName";
+		$permissionName = "page-edit-" . strtolower($fieldName);
 		if(!isset($fieldPermissions[$permissionName])) return;
 		$permission = $fieldPermissions[$permissionName];
 		if(!$this->user->hasPermission($permission)) {
